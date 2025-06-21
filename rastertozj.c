@@ -517,9 +517,10 @@ int main(int argc, char *argv[]) {
           ++zeroy;
         } else {
           if (zeroy) { // met non-zero, need to feed calculated num of zero lines
-            char *pZeroArr = (char*) malloc(sizeof(char) * zeroy * width_bytes);
+            unsigned char *pZeroArr = (unsigned char *)calloc(zeroy * width_bytes, sizeof(char));
             send_raster(pZeroArr, width_bytes, zeroy);
             zeroy=0;
+            free(pZeroArr);
           }
           if (!nonzerolines)
             pChunk = pBuf;
